@@ -1,6 +1,6 @@
 ﻿## **Semantic Role Labeling using AllenNLP**
 
-This script takes sample sentences which can be a single or list of sentences and uses AllenNLP's per-trained model on Semantic Role Labeling to make predictions.
+This script takes sample sentences which can be a single or list of sentences and uses AllenNLP's pre-trained model on Semantic Role Labeling to make predictions.
 
 ## **Description**
 
@@ -31,9 +31,7 @@ on project directory or virtual enviroment
 
 ## **Interpreting the result**
 
-AllenNLP uses PropBank Annotation. As a result,each verb sense has numbered arguments e.g., ARG-0, ARG-1,
-
-etc.
+AllenNLP uses PropBank Annotation. As a result, each verb sense has numbered arguments e.g., ARG-0, ARG-1, etc.
 
 ARG-0 is usually PROTO-AGENT
 
