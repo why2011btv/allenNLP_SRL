@@ -71,6 +71,7 @@ for file_name in tqdm.tqdm(onlyfiles):
     '''
     G = nx.Graph()
     DG = nx.DiGraph()
+    CorefG = nx.Graph()
 
     for (event_id1, event_id2) in my_dict["relation_dict"].keys():
         if my_dict["relation_dict"][(event_id1, event_id2)]['relation'] == 0:
@@ -79,6 +80,8 @@ for file_name in tqdm.tqdm(onlyfiles):
         elif my_dict["relation_dict"][(event_id1, event_id2)]['relation'] == 1:
             G.add_edge(int(event_id2), int(event_id1))
             DG.add_edge(int(event_id2), int(event_id1))
+        elif my_dict["relation_dict"][(event_id1, event_id2)]['relation'] == 2:
+            CorefG.add_edge(int(event_id1), int(event_id2))
         else:
             do_nothing = 1
             
@@ -92,7 +95,12 @@ for file_name in tqdm.tqdm(onlyfiles):
                 connected_component.remove(root)
                 for event_id in list(connected_component):
                     if event_info[event_id] != event_info[root]:
-                        subevents.append(event_info[event_id])
+                        if root in CorefG.nodes:
+                            if event_id not in CorefG[root].keys():
+                                subevents.append(event_info[event_id])
+                        else:
+                            subevents.append(event_info[event_id])
+                        
         subevent_sum += len(subevents)   
         event_complex[ec_id] = {event_info[root]: subevents}      
         
